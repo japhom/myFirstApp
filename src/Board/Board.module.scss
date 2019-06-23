@@ -8,3 +8,12 @@
 	box-shadow: 0 4px 6px hsla(0, 0%, 0%, 0.1);
 	margin: 1px;
 }
+
+
+.container_add {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding: 16px 28px;
+}

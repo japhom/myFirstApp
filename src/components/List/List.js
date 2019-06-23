@@ -12,7 +12,7 @@ class List extends React.Component {
                 
                 <ul className={styles.list}>
                     {items.map((item,i) => 
-                        <li className={index == i ? styles.item_selected:styles.item} >{item}</li>)}
+                        <li key={i}className={index == i ? styles.item_selected:styles.item} >{item}</li>)}
                 </ul>
             </div>
         );
