@@ -46,8 +46,8 @@ class App extends React.PureComponent {
 
 
   onDeleteItem = (object)=>{
-    const value = this.state[object].delete;
-    
+    const value = this.state[object].erease;
+    console.log(value);
     const nextState = produce(this.state, (draft) => {
       draft[object].items.splice(value,1);
       draft[object].erease = '';

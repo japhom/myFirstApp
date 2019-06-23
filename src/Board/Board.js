@@ -17,7 +17,7 @@ class Board extends React.Component {
         return (
             <div className={styles.main}>
                 <div className={styles.container_add}>
-                    <Input input={input} onChange={onInputChange} object={object} type={"input"}></Input>
+                    <Input tipo="text" input={input} onChange={onInputChange} object={object} type={"input"}></Input>
                     <Button label={'Agregar'} onClick={onAddButtonClick} />
                 </div>
 
@@ -26,7 +26,7 @@ class Board extends React.Component {
                 <Button style={styles.button_green} label={label} onClick={onButtonClick} />
 
                 <div className={styles.container_add}>
-                    <Input input={erease} onChange={onInputChange} object={object} type={"erease"} ></Input>
+                    <Input tipo="number" input={erease} onChange={onInputChange} object={object} type={"erease"} ></Input>
                     <Button label={'-'} onClick={onDeleteItem} />
                 </div>
             </div>
