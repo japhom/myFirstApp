@@ -11,7 +11,7 @@ export default class Button extends React.Component {
         const { onClick, label, style, ...props } = this.props;
         return (
             <div className={styles.main}>
-                <button onClick={onClick} className={styles.button + ' ' + style} {...props}>
+                <button onClick={onClick} className={styles.button + ' ' + styles.Button} {...props}>
                     {label}
                 </button>
             </div>

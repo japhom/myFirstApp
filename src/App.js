@@ -6,51 +6,55 @@ import Board from "./Board/Board";
 import produce from 'immer/dist/immer';
 
 class App extends React.PureComponent {
-  state =
-  {
+    state =
+    {
     family:{
-      items: ['Adriana', 'Gemma', 'Laura', 'Esmeralda', 'Nancy'],
-      index:0,
-      input:'',
-      erease:''
+        items: ['Adriana', 'Gemma', 'Laura', 'Esmeralda', 'Nancy'],
+        index:0,
+        input:'',
+        erease:''
     },
     sports:{
-      items: ['Fucho', 'Pinball', 'basquetbol', 'baseball', 'Natacion'],
-      index:0,
-      input: '',
-      erease: ''
+        items: ['Fucho', 'Pinball', 'basquetbol', 'baseball', 'Natacion'],
+        index:0,
+        input: '',
+        erease: ''
     },
     food:{
-      items: ['Tlayudas', 'Tacos', 'Tortas Ahogadas', 'Hamburguesa', 'Flautas','Sopa aguada'],
-      index:0,
-      input: '',
-      erease: ''
+        items: ['Tlayudas', 'Tacos', 'Tortas Ahogadas', 'Hamburguesa', 'Flautas','Sopa aguada'],
+        index:0,
+        input: '',
+        erease: ''
     },
     beverage:{
-      items: ['Tequila', 'Ron', 'Brandy', 'Mezcal'],
-      index:0,
-      input:'',
-      erease: ''
+        items: ['Tequila', 'Ron', 'Brandy', 'Mezcal'],
+        index:0,
+        input:'',
+        erease: ''
     }
-  }
-  onHandleButton = (object) => { 
-      const nextState = produce(this.state, (draft) => {
-          if (draft[object].items.length > draft[object].index + 1){
-            draft[object].index = draft[object].index + 1;
-          } else  {
-            draft[object].index = 0;
-          }
-      });
-      this.setState(nextState);
+    }
+    componentWillMount()
+    {
+
+    }
+    onHandleButton = (object) => { 
+        const nextState = produce(this.state, (draft) => {
+            if (draft[object].items.length > draft[object].index + 1){
+                draft[object].index = draft[object].index + 1;
+            } else  {
+                draft[object].index = 0;
+            }
+    });
+        this.setState(nextState);
     };
 
 
-  onDeleteItem = (object)=>{
+    onDeleteItem = (object)=>{
     const value = this.state[object].erease;
     console.log(value);
     const nextState = produce(this.state, (draft) => {
-      draft[object].items.splice(value,1);
-      draft[object].erease = '';
+        draft[object].items.splice(value,1);
+        draft[object].erease = '';
     });
     this.setState(nextState);
     
