@@ -18,17 +18,34 @@
     list-style: none;
     padding: 2px;
     cursor: pointer;
-    border: 1px solid transparent;
     text-align: center;
-	margin: 4px;
+
+    display: flex;
 }
 .item:hover {
-    color:#333;
-    border: 1px solid #9999;
     background-color: #EAEAEA;
+    background: linear-gradient(45deg, rgba(200,200,200,0),rgba(234,234,234,1));
+}
+.item_selected:hover> .item_svg , .item:hover > .item_svg {
+    color: #900;
 }
 .item_selected {
     color: #900;
-    border: 1px solid #9999;
     background-color: #EAEAEA;
+    background: linear-gradient(45deg, rgba(200,200,200,0),rgba(234,234,234,1));
 }
+.item_svg {
+    flex:1;
+    color: transparent;
+    height: auto;
+}
+.item_svg:hover{
+    box-shadow: 1px 2px 3px #999;
+}
+.item_name {
+    flex:5
+}
+.icon_mark{
+    width: 10px;
+    height: 10px;
+}                             

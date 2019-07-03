@@ -1,0 +1,22 @@
+.addBoard_button {
+	color :white;
+	box-shadow: 1px 2px 3px #333;
+}
+
+.plus_icon{
+	width: 15px;
+	height: 15px;
+	fill:#666;
+	margin-top:5px;
+
+}
+.add_board_container {
+	display: flex;
+	flex-direction: row;
+	max-width: 1wv;
+	padding: 5px;
+	border:1px solid #EAEAEA;
+	background-color:#EAEAEA;
+	margin-bottom:10px;
+
+}

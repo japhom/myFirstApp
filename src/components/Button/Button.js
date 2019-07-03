@@ -8,11 +8,13 @@ export default class Button extends React.Component {
         label: PropTypes.string
     };
     render() {
-        const { onClick, label, style, ...props } = this.props;
+        const { onClick, icon ,label, className, ...props } = this.props;
+        console.log(this.props);
         return (
             <div className={styles.main}>
-                <button onClick={onClick} className={styles.button + ' ' + style} {...props}>
+                <button onClick={onClick} className={className + ' ' +styles.button} {...props}>
                     {label}
+                    {icon}
                 </button>
             </div>
         );

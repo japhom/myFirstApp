@@ -1,127 +1,114 @@
 import React from 'react';
-import logo from './logo.svg';
 import styles from './App.module.scss';
 import Board from "./Board/Board";
+import AddBoard from './components/AddBoard/AddBoard';
 
 import produce from 'immer/dist/immer';
 
-class App extends React.PureComponent {
-  state =
-  {
-    family:{
-      items: ['Adriana', 'Gemma', 'Laura', 'Esmeralda', 'Nancy'],
-      index:0,
-      input:'',
-      erease:''
-    },
-    sports:{
-      items: ['Fucho', 'Pinball', 'basquetbol', 'baseball', 'Natacion'],
-      index:0,
-      input: '',
-      erease: ''
-    },
-    food:{
-      items: ['Tlayudas', 'Tacos', 'Tortas Ahogadas', 'Hamburguesa', 'Flautas','Sopa aguada'],
-      index:0,
-      input: '',
-      erease: ''
-    },
-    beverage:{
-      items: ['Tequila', 'Ron', 'Brandy', 'Mezcal'],
-      index:0,
-      input:'',
-      erease: ''
+class App extends React.PureComponent { 
+    state = {
+        "boards":[
+            {
+                items:['Adriana','Gema','Rosario','Martha'],
+                input:{add:"",remove:""},
+                index:0,
+                title:'Familia',
+                idBoard:0
+
+            }
+        ]
     }
-  }
-  onHandleButton = (object) => { 
-      const nextState = produce(this.state, (draft) => {
-          if (draft[object].items.length > draft[object].index + 1){
-            draft[object].index = draft[object].index + 1;
-          } else  {
-            draft[object].index = 0;
-          }
-      });
-      this.setState(nextState);
+    componentWillMount(){
+        fetch('http://localhost:9090/api/boards')
+        .then((response)=>{
+            return response.json();
+        }).then((boards)=>{
+            const nextState = produce(this.state,(draft)=>{
+                draft.boards = boards;
+            });
+            this.nextState(nextState);
+        })
+    }
+    onHandleButton = (object) => { 
+        const nextState = produce(this.state, (draft) => {
+            if (draft[object].items.length > draft[object].index + 1){
+                draft[object].index = draft[object].index + 1;
+            } else  {
+                draft[object].index = 0;
+            }
+        });
+        this.setState(nextState);
+    };
+
+    onDeleteItem = (board,index)=>{
+        const nextState = produce(this.state, (draft) => {
+        draft[board].items.splice(index,1);
+        });
+        this.setState(nextState);
     };
 
 
-  onDeleteItem = (object)=>{
-    const value = this.state[object].erease;
-    console.log(value);
-    const nextState = produce(this.state, (draft) => {
-      draft[object].items.splice(value,1);
-      draft[object].erease = '';
-    });
-    this.setState(nextState);
-    
-  };
-
-
-  onAddButtonClick = (object) => {
-    if (this.state[object].input == "") {
-      return false;
+    fnDeleteBoard(board) {
+        const nextState = produce(this.state, (draft) => {
+        delete draft[board];
+        });
+        this.setState(nextState);
     }
-    const nextState = produce(this.state, (draft) => {
-      draft[object].items = draft[object].items.concat(draft[object].input);
-      draft[object].input = "";
-    });
-    console.log(this.state[object].input);
-    this.setState(nextState);
-  };
 
-  onInputChange = (object,type,event) => {
-    const value = event.target.value;
-    const nextState = produce(this.state, (draft) => {
-      draft[object][type] = value;
-    });
-    this.setState(nextState);
-  };
-  render (){
-    const { family, sports, food, beverage} = this.state;
-      return (
-      <div>
+    onAddButtonClick = (object) => {
+        if (this.state[object].input == "") {
+            return false;
+        }
+        const nextState = produce(this.state, (draft) => {
+            draft[object].items = draft[object].items.concat(draft[object].input);
+            draft[object].input = "";
+        });
+        this.setState(nextState);
+    };
 
-        <p className={styles.title}>¡Bienvenidos al curso de programación de cómputo móvil!</p>
-        
-        <div className={styles.container_boards}>
-          <Board input={family.input} items={family.items} index ={family.index} label={'Siguiente'} 
-              onButtonClick={() => this.onHandleButton("family")} onAddButtonClick={()=>this.onAddButtonClick("family")} 
-              onInputChange = {this.onInputChange} object={"family"}
-              onDeleteItem={()=>this.onDeleteItem("family")}
-              erease={family.erease}
-              />
+    onInputChange = (object,type,event) => {
+        const value = event.target.value;
+        const nextState = produce(this.state, (draft) => {
+            draft[object][type] = value;
+        });
+        this.setState(nextState);
+    };
 
-          <Board input={sports.input} items={sports.items} index ={sports.index} label={'Siguiente'} 
-              onButtonClick={() => this.onHandleButton("sports")} onAddButtonClick={() => this.onAddButtonClick("sports")} 
-              onInputChange={this.onInputChange} object={"sports"}
-              onDeleteItem={() => this.onDeleteItem("sports")}
-              erease={sports.erease}
-              />
+    render (){
+        const BoardFunctions = {
+            onInputChange:this.onInputChange,
+            onButtonClick:this.onHandleButton,
+            onAddButtonClick: this.onAddButtonClick,
+            onDeleteItem : this.onDeleteItem,
+            fnDeleteBoard : this.fnDeleteBoard
+        };
 
-          <Board input={food.input} items={food.items} index ={food.index} label={'Siguiente'} 
-              onButtonClick={() => this.onHandleButton("food")} onAddButtonClick={() => this.onAddButtonClick("food")}
-              onInputChange={this.onInputChange} object={"food"}
-              onDeleteItem={() => this.onDeleteItem("food")}
-              erease={food.erease}
-              />
+        return (
+            <div className={styles.main_container}>
 
-          <Board input={beverage.input} items={beverage.items} index={beverage.index} label={'Siguiente'} 
-              onButtonClick={() => this.onHandleButton("beverage")} onAddButtonClick={() => this.onAddButtonClick("beverage")}
-              onInputChange={this.onInputChange} object={"beverage"}
-              onDeleteItem={() => this.onDeleteItem("beverage")}
-              erease={beverage.erease}              
-            />
-            
-          
-          <p className={styles.result}>El nombre seleccionado es  &nbsp;<span className={styles.onlyname}>{family.items[family.index]}</span> y
-            le gusta como deporte <span className={styles.onlyname}>{sports.items[sports.index]}</span> y
-            le gusta comer <span className={styles.onlyname}>{food.items[food.index]}</span> y
-            le gusta emborracharse con  <span className={styles.onlyname}>{beverage.items[beverage.index]}</span> 
-            </p>
-        </div>
-      </div>
-      );
-  }
+                <p className={styles.title}>¡Bienvenidos al curso de programación de cómputo móvil!</p>
+                
+                <div className={styles.second_title}>
+                    <span>Mis tableros</span>
+                    <span>Total de Tableros: {this.state.boards.length}</span>
+
+                </div>  
+                <div className={styles.add_board_container}>
+                    <AddBoard /> 
+                </div>
+                <div className={styles.container_boards}>
+                    {this.state.boards.map((board, i)=>
+                    <Board board ={ board } BoardFunctions = {BoardFunctions} key={i}  />
+                )}
+                
+                </div>
+                
+                <div className={styles.result_container}>
+                Resultados:...  
+                </div>
+            </div>    
+        );
+    }
 }
 
 export default App;
