@@ -50,7 +50,18 @@ class App extends React.PureComponent {
     };
 
     fnDeleteBoard = (board) => {
-        console.log("so some deletes");
+        let idBoard = this.state.boards[board].idBoard;
+        fetch('http://localhost:9090/api/deleteBoard/' + idBoard, { method: 'POST', mode: 'cors' })
+            .then((response) => {
+                return response.json();
+            }).then((save) => {
+                if (save.status !== "ok") {
+                    window.alert("Error al eliminar el tablero en base de datos");
+                    return false;
+                } else {
+                    // esperando para validar si se guarda o no en BD
+                }
+            });
         const nextState = produce(this.state, (draft) => {
             delete draft.boards[board];
         });
@@ -60,7 +71,17 @@ class App extends React.PureComponent {
     addBoard = ()=> {
         if(this.state.newBoard ==="")
             return false;
-
+        fetch('http://localhost:9090/api/addBoard/' + this.state.newBoard, { method: 'POST', mode: 'cors' })
+            .then((response) => {
+                return response.json();
+            }).then((save) => {
+                if (save.status !== "ok") {
+                    window.alert("Error al agregar el tablero en base de datos");
+                    return false;
+                } else {
+                    // esperando para validar si se guarda o no en BD
+                }
+            });
         const nextState = produce(this.state, (draft) => {
             let newBoard = {
                 items: [],

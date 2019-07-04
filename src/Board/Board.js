@@ -8,6 +8,12 @@ import { NONAME } from 'dns';
 
 
 class Board extends React.Component {
+    deleteBoard = ()=>{
+        const { BoardFunctions, boardKey } = this.props;
+        if (window.confirm("confirme el borrado del Tablero")){
+            BoardFunctions.fnDeleteBoard(boardKey);
+        }
+    }
     render() {
         const { board, BoardFunctions, boardKey} = this.props;
         return (
@@ -21,7 +27,7 @@ class Board extends React.Component {
                         </span>
                     </span>
                     <Button label={"X"} 
-                        onClick={() => BoardFunctions.fnDeleteBoard(boardKey)} 
+                        onClick={this.deleteBoard} 
                         className={styles.close_board_button}>
                     </Button>
                 </div>
