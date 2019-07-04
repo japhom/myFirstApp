@@ -12,32 +12,37 @@ class App extends React.PureComponent {
         items: ['Adriana', 'Gemma', 'Laura', 'Esmeralda', 'Nancy'],
         index:0,
         input:'',
-        erease:''
+        erease:'',
+        title:'Familia'
     },
     sports:{
         items: ['Fucho', 'Pinball', 'basquetbol', 'baseball', 'Natacion'],
         index:0,
         input: '',
-        erease: ''
+        erease: '',
+        title: 'deportes'
     },
     food:{
         items: ['Tlayudas', 'Tacos', 'Tortas Ahogadas', 'Hamburguesa', 'Flautas','Sopa aguada'],
         index:0,
         input: '',
-        erease: ''
+        erease: '',
+        title: 'Comidas'
+
     },
     beverage:{
         items: ['Tequila', 'Ron', 'Brandy', 'Mezcal'],
         index:0,
         input:'',
-        erease: ''
+        erease: '',
+        title: 'Bebidas'
     }
     }
     componentWillMount()
     {
 
     }
-    onHandleButton = (object) => { 
+    onHandleButton = (object) => {
         const nextState = produce(this.state, (draft) => {
             if (draft[object].items.length > draft[object].index + 1){
                 draft[object].index = draft[object].index + 1;
@@ -57,7 +62,7 @@ class App extends React.PureComponent {
         draft[object].erease = '';
     });
     this.setState(nextState);
-    
+
   };
 
 
@@ -85,42 +90,25 @@ class App extends React.PureComponent {
       return (
       <div>
 
-        <p className={styles.title}>¡Bienvenidos al curso de programación de cómputo móvil!</p>
-        
+        <div className={styles.main_title}>
+            <p className={styles.title}>¡Bienvenidos al curso de programación de cómputo móvil!</p>
+        </div>
+
+        <div className={styles.add_board_container}>
+        </div>
+
         <div className={styles.container_boards}>
-          <Board input={family.input} items={family.items} index ={family.index} label={'Siguiente'} 
-              onButtonClick={() => this.onHandleButton("family")} onAddButtonClick={()=>this.onAddButtonClick("family")} 
-              onInputChange = {this.onInputChange} object={"family"}
-              onDeleteItem={()=>this.onDeleteItem("family")}
-              erease={family.erease}
-              />
-
-          <Board input={sports.input} items={sports.items} index ={sports.index} label={'Siguiente'} 
-              onButtonClick={() => this.onHandleButton("sports")} onAddButtonClick={() => this.onAddButtonClick("sports")} 
-              onInputChange={this.onInputChange} object={"sports"}
-              onDeleteItem={() => this.onDeleteItem("sports")}
-              erease={sports.erease}
-              />
-
-          <Board input={food.input} items={food.items} index ={food.index} label={'Siguiente'} 
-              onButtonClick={() => this.onHandleButton("food")} onAddButtonClick={() => this.onAddButtonClick("food")}
-              onInputChange={this.onInputChange} object={"food"}
-              onDeleteItem={() => this.onDeleteItem("food")}
-              erease={food.erease}
-              />
-
-          <Board input={beverage.input} items={beverage.items} index={beverage.index} label={'Siguiente'} 
-              onButtonClick={() => this.onHandleButton("beverage")} onAddButtonClick={() => this.onAddButtonClick("beverage")}
-              onInputChange={this.onInputChange} object={"beverage"}
-              onDeleteItem={() => this.onDeleteItem("beverage")}
-              erease={beverage.erease}              
+            <Board object={family}
+                input={family.input} items={family.items} index ={family.index} label={'Siguiente'}
+                onButtonClick={() => this.onHandleButton("family")} onAddButtonClick={()=>this.onAddButtonClick("family")}
+                onInputChange = {this.onInputChange} 
+                onDeleteItem={()=>this.onDeleteItem("family")}
+                erease={family.erease}
             />
-            
-          
-          <p className={styles.result}>El nombre seleccionado es  &nbsp;<span className={styles.onlyname}>{family.items[family.index]}</span> y
+        <p className={styles.result}>El nombre seleccionado es  &nbsp;<span className={styles.onlyname}>{family.items[family.index]}</span> y
             le gusta como deporte <span className={styles.onlyname}>{sports.items[sports.index]}</span> y
             le gusta comer <span className={styles.onlyname}>{food.items[food.index]}</span> y
-            le gusta emborracharse con  <span className={styles.onlyname}>{beverage.items[beverage.index]}</span> 
+            le gusta emborracharse con  <span className={styles.onlyname}>{beverage.items[beverage.index]}</span>
             </p>
         </div>
       </div>

@@ -3,7 +3,7 @@ import styles from './Board.module.scss';
 import List from '../components/List/List';
 import Button from '../components/Button/Button';
 import Input from '../components/Input/Input';
-
+import {IconAddMark} from '../resources/svg/Icons';
 
 
 class Board extends React.Component {
@@ -11,24 +11,23 @@ class Board extends React.Component {
 
     componentDidMount() { };
     render() {
-        const { items, index, label, onButtonClick ,input,object,erease,
+        const { items, index, label, onButtonClick ,input,object,erease,title,
             onAddButtonClick, onInputChange, onDeleteItem
         } = this.props;
         return (
             <div className={styles.main}>
+                <div className={styles.titulo}>
+                    {object.title}
+                </div>
                 <div className={styles.container_add}>
                     <Input tipo="text" input={input} onChange={onInputChange} object={object} type={"input"}></Input>
-                    <Button label={'Agregar'} onClick={onAddButtonClick} />
+                    <Button label={''} onClick={onAddButtonClick} 
+                        icon={<IconAddMark className={styles.icon} /> }  
+                    />
                 </div>
 
-
-                <List items={items} index={index} />
-                <Button style={styles.button_green} label={label} onClick={onButtonClick} />
-
-                <div className={styles.container_add}>
-                    <Input tipo="number" input={erease} onChange={onInputChange} object={object} type={"erease"} ></Input>
-                    <Button label={'-'} onClick={onDeleteItem} />
-                </div>
+                <List items={items} index={index} onDeleteItem={onDeleteItem}/>
+                
             </div>
         );
     }

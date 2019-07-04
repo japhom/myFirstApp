@@ -20,15 +20,16 @@
     cursor: pointer;
     border: 1px solid transparent;
     text-align: center;
-	margin: 4px;
+    margin: 4px;
+    
 }
 .item:hover {
     color:#333;
-    border: 1px solid #9999;
-    background-color: #EAEAEA;
+    border-image-source: linear-gradient(45deg, rgba(200,200,200,1), rgb(234, 234, 234));
 }
 .item_selected {
-    color: #900;
-    border: 1px solid #9999;
-    background-color: #EAEAEA;
+    background:linear-gradient(45deg, rgba(200,200,200,0), rgb(234, 234, 234));
+    border: 3px solid;
+    border-image-source: linear-gradient(45deg, rgba(200,200,200,0), rgb(234, 234, 234));
+    border-image-slice: 1;
 }
