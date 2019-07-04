@@ -1,30 +1,34 @@
 import * as React from 'react';
 import styles from './List.module.scss';
 import { IconXMark } from '../../resources/svg/Icons';
-
+import Button from '../Button/Button';
 
 class List extends React.Component {
 
     onClose = (index) => {
-        const { onDeleteItem ,board} = this.props;
-        onDeleteItem(board,index);
+        const { onDeleteItem, boardKey} = this.props;
+        onDeleteItem(boardKey,index);
     };
     componentDidMount(){};
     render(){
-        const { items,index} =this.props;
+        const { items} =this.props;
         return (
             <div className={styles.main}>
                 
                 <ul className={styles.list}>
                     {items.map((item,i) => 
-                        <li key={i}className={index == i ? styles.item_selected:styles.item} >
+                        <li key={i} className ={styles.item} >
+                            
                             <p className={styles.item_name}>
                                 {item}
                             </p>
-                            <p className={styles.item_svg} onClick={() => this.onClose(i)}>
-                                <IconXMark className={styles.icon_mark}/>
-                            </p>
-                        </li>)}
+
+                            <Button className={styles.list_item_button} 
+                                onClick={() => this.onClose(i)} 
+                                icon={<IconXMark className={styles.icon_mark}/> } >
+                            </Button>
+                        </li>)
+                    }
                 </ul>
             </div>
         );

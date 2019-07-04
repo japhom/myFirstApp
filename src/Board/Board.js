@@ -8,16 +8,13 @@ import { NONAME } from 'dns';
 
 
 class Board extends React.Component {
-    state = {};
     deleteBoard(){
-        const { fnDeleteBoard,board } = this.props;
-        fnDeleteBoard(board);
+        const { BoardFunctions, boardKey } = this.props;
+        BoardFunctions.fnDeleteBoard(boardKey);
     }
-    componentDidMount() { };
+
     render() {
-        const { board, onButtonClick,
-            onAddButtonClick, onInputChange, onDeleteItem
-        } = this.props;
+        const { board, BoardFunctions, boardKey} = this.props;
         return (
             <div className={styles.main}>
 
@@ -31,11 +28,11 @@ class Board extends React.Component {
                     <Button label={"X"} onClick={this.deleteBoard} className={styles.close_board_button}/>
                 </div>
                 <div className={styles.container_add}>
-                    <Input tipo="text" input={board.input} onChange={onInputChange} object={board.name} type={"input"}></Input>
-                    <Button label={''} onClick={onAddButtonClick} icon={<IconPlusMark className={styles.plus_icon}/>} />
+                    <Input tipo="text" input={board.input} onChange={BoardFunctions.onInputChange} boardKey={boardKey}></Input>
+                    <Button label={''} onClick={()=>BoardFunctions.onAddButtonClick(boardKey)} icon={<IconPlusMark className={styles.plus_icon}/>} />
                 </div>
-                <List items={board.items} index={board.index} board={board.name} onDeleteItem={onDeleteItem}/>
-                <Button style={styles.button_green} label={"Siguiente"} onClick={onButtonClick}  />
+                <List items={board.items} index={board.index} board={board.name} onDeleteItem={BoardFunctions.onDeleteItem} boardKey={boardKey}/>
+                {/* <Button style={styles.button_green} label={"Siguiente"} onClick={onButtonClick}  /> */}
             </div>
         );
     }
