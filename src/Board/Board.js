@@ -8,11 +8,6 @@ import { NONAME } from 'dns';
 
 
 class Board extends React.Component {
-    deleteBoard(){
-        const { BoardFunctions, boardKey } = this.props;
-        BoardFunctions.fnDeleteBoard(boardKey);
-    }
-
     render() {
         const { board, BoardFunctions, boardKey} = this.props;
         return (
@@ -25,8 +20,12 @@ class Board extends React.Component {
                             ( {board.items.length} elementos)
                         </span>
                     </span>
-                    <Button label={"X"} onClick={this.deleteBoard} className={styles.close_board_button}/>
+                    <Button label={"X"} 
+                        onClick={() => BoardFunctions.fnDeleteBoard(boardKey)} 
+                        className={styles.close_board_button}>
+                    </Button>
                 </div>
+
                 <div className={styles.container_add}>
                     <Input tipo="text" input={board.input} onChange={BoardFunctions.onInputChange} boardKey={boardKey}></Input>
                     <Button label={''} onClick={()=>BoardFunctions.onAddButtonClick(boardKey)} icon={<IconPlusMark className={styles.plus_icon}/>} />

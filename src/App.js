@@ -17,7 +17,8 @@ class App extends React.PureComponent {
                 idBoard:0
             }
         ]
-    }
+    };
+
     componentWillMount(){
         fetch('http://localhost:9090/api/boards')
         .then((response)=>{
@@ -26,9 +27,10 @@ class App extends React.PureComponent {
             const nextState = produce(this.state,(draft)=>{
                 draft.boards = boards;
             });
-            this.nextState(nextState);
+            this.setState(nextState);
         })
-    }
+    };
+
     onHandleButton = (object) => {
         const nextState = produce(this.state, (draft) => {
             if (draft[object].items.length > draft[object].index + 1){
@@ -47,15 +49,18 @@ class App extends React.PureComponent {
         this.setState(nextState);
     };
 
-
     fnDeleteBoard = (board) => {
+        console.log("so some deletes");
         const nextState = produce(this.state, (draft) => {
-            delete draft[board];
+            delete draft.boards[board];
         });
         this.setState(nextState);
-    }
+    };
 
     addBoard = ()=> {
+        if(this.state.newBoard ==="")
+            return false;
+
         const nextState = produce(this.state, (draft) => {
             let newBoard = {
                 items: [],
@@ -68,7 +73,8 @@ class App extends React.PureComponent {
             draft.newBoard = "";
         });
         this.setState(nextState);
-    }
+    };
+
     onAddButtonClick = (object) => {
         
         if (this.state.boards[object].input == "") {
@@ -76,6 +82,14 @@ class App extends React.PureComponent {
         }
         const nextState = produce(this.state, (draft) => {
             draft.boards[object].items = draft.boards[object].items.concat(draft.boards[object].input);
+            fetch('http://localhost:9090/api/saveItem/' + draft.boards[object].idBoard + "/" + draft.boards[object].input, { method: "POST", mode: "cors"})
+            .then((response) => {
+                return response.json();
+            }).then((save) => {
+                if (save.status !== "ok") {
+                    return false;
+                }
+            });
             draft.boards[object].input = "";
         });
         this.setState(nextState);
@@ -99,11 +113,11 @@ class App extends React.PureComponent {
 
     render (){
         const BoardFunctions = {
-            onInputChange:this.onInputChange,
-            onButtonClick:this.onHandleButton,
+            onInputChange   : this.onInputChange,
+            onButtonClick   : this.onHandleButton,
             onAddButtonClick: this.onAddButtonClick,
-            onDeleteItem : this.onDeleteItem,
-            fnDeleteBoard : this.fnDeleteBoard
+            onDeleteItem    : this.onDeleteItem,
+            fnDeleteBoard   : this.fnDeleteBoard
         };
 
         return (
@@ -131,7 +145,7 @@ class App extends React.PureComponent {
                 </div>
             </div>
         );
-    }
+    };
 }
 
 export default App;
