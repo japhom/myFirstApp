@@ -6,24 +6,25 @@ import Boards from './screens/Boards/Boards';
 import Tablas from './screens/Tablas/Tablas';
 import Reportes from './screens/Reportes/Reportes';
 import Summary from './screens/Summary/Summary';
+import styles from './App.module.scss';
 
 export default withRouter(
     class App extends React.PureComponent {
         render() {
             return (
                 <div>
-                    <div>
+                    <div className={styles.nav}>
                         <Link to="/Boards">
-                            <button>Boards</button>
+                            <div>Boards</div>
                         </Link>
                         <Link to="/Tablas">
-                            <button>Tablas</button>
+                            <div>Tablas</div>
                         </Link>
                         <Link to="/Summary">
-                            <button>Resumen</button>
+                            <div>Resumen</div>
                         </Link>
                         <Link to="/Reportes">
-                            <button>Reportes</button>
+                            <div>Reportes</div>
                         </Link>
                     </div>
                     <Switch>

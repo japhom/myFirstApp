@@ -38,11 +38,11 @@ export default (class Tablas extends React.PureComponent {
                         {data.map((item,i)=>{
                             return(
                                 <tr key={i}>
-                                    {headers.map((header,i)=>{
+                                    {headers.map((header,n)=>{
                                         return(
-                                            <td className={styles[header.format]}> 
+                                            <td key={n} className={styles[header.format]}> 
                                                 <span>
-                                                    { item[header.value] }
+                                                    {item[header.value] }
                                                 </span>
                                             </td>
                                         );
