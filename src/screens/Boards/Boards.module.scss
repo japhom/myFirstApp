@@ -1,0 +1,45 @@
+ .button_green {
+	background: #009!important;
+}
+
+@keyframes App-logo-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.title {
+	font-size: 2rem;
+	font-weight: 900;
+	text-align: center;
+	padding: 8px 16px 8px 16px;
+	background-color:#EAEAEA;
+}
+.result {
+	padding: 8px;
+	border:1px solid #EAEAEA;
+	text-shadow: 1px 1px 3px #999;
+}
+.onlyname{
+	color:#900 !important;
+}
+
+.container_boards {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	text-align: left;
+}
+
+.second_title {
+	display: flex;
+	justify-content: space-between;
+	padding-right: 30px;
+	padding-left: 30px;
+	margin-bottom:5px;
+
+}
