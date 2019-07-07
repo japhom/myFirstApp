@@ -33,3 +33,25 @@
     border-top:2px dashed #999;
     border-left: 1px dotted #999;
 }
+
+.icons {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	padding-right: 32px;
+}
+.icon,
+.icon_selected {
+	width: 16px;
+	fill: gray;
+	margin: 16px;
+	cursor: pointer;
+	outline: none;
+}
+.icon_selected {
+	fill: blue;
+}
+.graficas {
+    display: flex;
+    fle
+}

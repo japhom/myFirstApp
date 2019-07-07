@@ -1,10 +1,23 @@
 import * as React from 'react';
 import styles from './Table.module.scss';
-
+import CurrencyFormat from 'react-currency-format';
 
 
 export default (class Summary extends React.PureComponent {
     state = { };
+
+    formatData = (data, type) => {
+        switch (type) {
+            case 'text':
+                return data;
+            case 'number':
+                return data.toLocaleString(navigator.language, { minimumFractionDigits: 0 });
+            case 'money':
+                return <CurrencyFormat value={data} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />;
+            default:
+                return data;
+        }
+    };
 
     componentDidMount() { }
     
@@ -45,7 +58,7 @@ export default (class Summary extends React.PureComponent {
                                                 return (
                                                     <td key={n} className={styles[header.format]}>
                                                         <span>
-                                                            {item[header.value]}
+                                                            { this.formatData(item[header.value] , header.format )}
                                                         </span>
                                                     </td>
                                                 );
@@ -63,16 +76,13 @@ export default (class Summary extends React.PureComponent {
                                 return (
                                     <td key={i} className={styles[header.format]}>
                                         <span>
-                                            {this.calculateFooter(data.summary, header)}
+                                            {this.formatData(  this.calculateFooter(data.summary, header), header.format) }
                                         </span>
                                     </td>);
                             })}
                         </tr>
                     </tfoot>
                 </table>
-
-            );
-                
             </div>
         );
     }

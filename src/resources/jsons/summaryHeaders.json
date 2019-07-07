@@ -22,11 +22,13 @@
 	{
 		"name": "TOTAL",
 		"value": "quantity",
-		"footer": "sum"
+		"footer": "sum",
+		"format":"money"
 	},
 	{
 		"name": "MONTO",
 		"value": "value",
-		"footer": "sum"
+		"footer": "sum",
+		"format":"money"
 	}
 ]

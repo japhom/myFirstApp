@@ -35,3 +35,21 @@
     border-left: 1px dotted #999;
     background-color: #EAEAEA;
 }
+
+.icons {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	padding-right: 32px;
+}
+.icon,
+.icon_selected {
+	width: 16px;
+	fill: gray;
+	margin: 16px;
+	cursor: pointer;
+	outline: none;
+}
+.icon_selected {
+	fill: blue;
+}

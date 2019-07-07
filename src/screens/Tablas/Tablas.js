@@ -2,12 +2,43 @@ import * as React from 'react';
 import styles from './Tablas.module.scss';
 import cashoutHeader from '../../resources/jsons/cashoutHeader.json';
 import cashoutData from '../../resources/jsons/cashoutData.json';
-
-
+import CurrencyFormat from 'react-currency-format';
+import { IconTable, IconChart } from '../../resources/svg/Icons';
+import produce from 'immer/dist/immer';
+import SimpleBarChart from './../Chart/Chart';
+import Table from './../../components/Table/Table';
 export default (class Tablas extends React.PureComponent {
-    state = {};
+    state = {
+        selected: {
+            table: true,
+            chart: false
+        }
+    };
 
     componentDidMount() { }
+    
+    formatData = (data, type) => {
+        
+        switch (type) {
+            case 'text':
+                return data;
+            case 'number':
+                return data.toLocaleString(navigator.language, { minimumFractionDigits: 0 });
+            case 'money':
+                return <CurrencyFormat value={data} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true} />;
+            default:
+                return data;
+        }
+    };
+    onHandleIcon = (item) => {
+        const nextState = produce(this.state, (draft) => {
+            draft.selected.table = false;
+            draft.selected.chart = false;
+            draft.selected[item] = true;
+        });
+        this.setState(nextState);
+    };
+
     calculateFooter = (data, item) => {
         switch (item.footer) {
             case 'sum':
@@ -19,55 +50,29 @@ export default (class Tablas extends React.PureComponent {
 
     render() {
         const headers = cashoutHeader;
-        const data = cashoutData[0].cashout;
+        const data = cashoutData[0];
+        console.log("TCL: Tablas -> render -> data", data)
+        const { selected } = this.state;
         return (
             <div className={styles.table_container}> 
-                <table className={styles.table} boder="0" cellSpacing="0">
-                    <thead>
-                        <tr>
-                            {headers.map((element,i)=>{
-                                return(
-                                    <th key={i}>
-                                        {element.name}
-                                    </th>
-                                );
-                            })}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data.map((item,i)=>{
-                            return(
-                                <tr key={i}>
-                                    {headers.map((header,n)=>{
-                                        return(
-                                            <td key={n} className={styles[header.format]}> 
-                                                <span>
-                                                    {item[header.value] }
-                                                </span>
-                                            </td>
-                                        );
-                                    })
+                <div className={styles.icons}>
+                    <div className={styles.container_icon} onClick={() => this.onHandleIcon('table')}>
+                        <IconTable className={selected.table ? styles.icon_selected : styles.icon} />
+                    </div>
+                    <div className={styles.container_icon} onClick={() => this.onHandleIcon('chart')}>
+                        <IconChart className={selected.chart ? styles.icon_selected : styles.icon} />
+                    </div>
+                </div>
 
-                                    }
-                                </tr>
-                            );
-                        })
-
-                        }
-                    </tbody>
-                    <tfoot>
-                        <tr className={styles.footer_row}>
-                            {headers.map((header, i) => {
-                                return (
-                                    <td className={styles[header.format]}>
-                                        <span>
-                                            {this.calculateFooter(data, header)}
-                                        </span>
-                                    </td>);
-                            })}
-                        </tr>
-                    </tfoot>
-                </table>
+                {selected.table && (
+                    <Table headers={headers} data={data}></Table>
+                )}
+                { selected.chart && (
+                    <div className={styles.graficas}>
+                        <SimpleBarChart newData = {data.summary} label={"zone"} llave={"sold"} />
+                        <SimpleBarChart newData = {data.summary} label={"zone"} llave={"total"} />
+                    </div>)
+                }
             </div>
         );
     }
