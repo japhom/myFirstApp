@@ -6,16 +6,38 @@ import CurrencyFormat from 'react-currency-format';
 import { IconTable, IconChart } from '../../resources/svg/Icons';
 import produce from 'immer/dist/immer';
 import SimpleBarChart from './../Chart/Chart';
+import BiaxialChart from './../Chart/BiaxialChart';
+import PieChartUsable from './../Chart/PieChart';
+
 import Table from './../../components/Table/Table';
 export default (class Tablas extends React.PureComponent {
     state = {
         selected: {
             table: true,
             chart: false
-        }
+        },
+        data:[]
     };
 
-    componentDidMount() { }
+    componentDidMount() { 
+
+        this.init();
+    }
+
+    init = () => {
+        let array = [];
+        cashoutData[0].summary.forEach((item, i) => {
+            const element = {
+                name: item.zone,
+                value: item.sold,
+            };
+            array = array.concat(element);
+        });
+        const nextState = produce(this.state, (draft) => {
+            draft.data = array;
+        });
+        this.setState(nextState);
+    };
     
     formatData = (data, type) => {
         
@@ -55,6 +77,7 @@ export default (class Tablas extends React.PureComponent {
         const { selected } = this.state;
         return (
             <div className={styles.table_container}> 
+
                 <div className={styles.icons}>
                     <div className={styles.container_icon} onClick={() => this.onHandleIcon('table')}>
                         <IconTable className={selected.table ? styles.icon_selected : styles.icon} />
@@ -68,10 +91,18 @@ export default (class Tablas extends React.PureComponent {
                     <Table headers={headers} data={data}></Table>
                 )}
                 { selected.chart && (
-                    <div className={styles.graficas}>
-                        <SimpleBarChart newData = {data.summary} label={"zone"} llave={"sold"} />
-                        <SimpleBarChart newData = {data.summary} label={"zone"} llave={"total"} />
-                    </div>)
+                    <div>
+                        <div className={styles.graficas}>
+                            <SimpleBarChart newData={data.summary} label={"zone"} llaves={["sold", "total"]} fill={["rgba(200,0,0,.3)", "rgba(0, 200, 0, .3)"]} />
+                        </div>
+                        <div>
+                            <BiaxialChart newData={data.summary} label={"zone"} llaves={['sold','total']} fill={["rgba(0,200,0,.3)",""]} />
+                        </div>
+                        <div>
+                            <PieChartUsable data={this.state.data} label={"zone"} llaves={['sold','total']} fill={["rgba(0,200,0,.3)",""]} />
+                        </div>
+                    </div>
+                    )
                 }
             </div>
         );

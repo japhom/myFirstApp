@@ -6,6 +6,7 @@ import Boards from './screens/Boards/Boards';
 import Tablas from './screens/Tablas/Tablas';
 import Reportes from './screens/Reportes/Reportes';
 import Summary from './screens/Summary/Summary';
+import Dates from './screens/Date/Dates';
 import styles from './App.module.scss';
 
 export default withRouter(
@@ -26,12 +27,16 @@ export default withRouter(
                         <Link to="/Reportes">
                             <div>Reportes</div>
                         </Link>
+                        <Link to="/Fechas">
+                            <div>Fechas</div>
+                        </Link>
                     </div>
                     <Switch>
                         <RouteWithTitle exact title="Boards" path="/Boards" component={Boards} />
                         <RouteWithTitle exact title="Tablas" path="/Tablas" component={Tablas} />
                         <RouteWithTitle exact title="Reportes" path="/Reportes" component={Reportes} />
                         <RouteWithTitle exact title="Summary" path="/Summary" component={Summary} />
+                        <RouteWithTitle exact title="Fechas" path="/Fechas" component={Dates} />
                         <Redirect to={'/Reportes'} />
                     </Switch>
                 </div>

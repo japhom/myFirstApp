@@ -6,7 +6,7 @@ import {
 export default class SimpleBarChart extends PureComponent {
 //    static jsfiddleUrl = 'https://jsfiddle.net/alidingling/30763kr7/';
 render() {
-    const {newData,label,llave} = this.props;
+    const {newData,label,llaves,fill} = this.props;
         return (
             <BarChart
                 width={800}
@@ -17,12 +17,26 @@ render() {
                 }}
             >
                 <CartesianGrid strokeDasharray="3 3" />
+                <defs>
+                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="rgba(169,3,41,1)" stopOpacity={1} />
+                        <stop offset="44%" stopColor="rgba(143,2,34,1) " stopOpacity={1} />
+                        <stop offset="100%" stopColor="rgba(109,0,25,1)" stopOpacity={1} />
+                        
+                    </linearGradient>
+                    <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="rgba(164,179,87,1)" stopOpacity={0.8} />
+                        <stop offset="95%" stopColor="rgba(117,137,12,1)" stopOpacity={1} />
+                    </linearGradient>
+                </defs>
                 <XAxis dataKey={label} />
-                <YAxis />
+                <YAxis yAxisId="left"/>
+                <YAxis yAxisId="right" orientation="right" />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey={llave} fill="#8884d8" />
-                
+                <Bar yAxisId="left" dataKey={llaves[0]} fill={'url(#colorUv)'} />
+                <Bar yAxisId="right" dataKey={llaves[1]} fill={'url(#colorPv)'} />
+                  
             </BarChart>
         );
     }

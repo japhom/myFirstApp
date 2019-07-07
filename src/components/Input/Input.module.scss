@@ -19,3 +19,13 @@
 	background: white;
 	text-align: center;
 }
+.main {
+	display: flex;
+}
+.main > span {
+	flex:1;
+	margin-right: 5px;
+}
+.main > input{
+	flex:3;
+}

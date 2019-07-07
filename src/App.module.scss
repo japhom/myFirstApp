@@ -46,7 +46,18 @@
 
 .nav {
 	display: flex;
+	margin-top:5px;
 }
 .nav > a {
+	transition: background ease-in-out .3s;
 	flex: 1;
+	text-decoration: none;
+	box-shadow:0 4px 6px hsl(0, 1%, 90%), 0 5px 15px hsl(0, 1%, 90%) ;
+	padding: 5px;
+}
+.nav >a >div {
+	text-align: center;
+}
+.nav >a:hover {
+	background-color: #EAEAEA;
 }
