@@ -88,7 +88,7 @@ export default (class Tablas extends React.PureComponent {
                 </div>
 
                 {selected.table && (
-                    <Table headers={headers} data={data}></Table>
+                    <Table headers={headers} data={data} caption={data.name}></Table>
                 )}
                 { selected.chart && (
                     <div>

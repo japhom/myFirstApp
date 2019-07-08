@@ -1,9 +1,11 @@
-.first_container,.second_container {
+.first_container,.second_container,.tercer_contenedor {
     display: flex;
     flex-direction: row;
     width: 100%;
 }
-.first_container > div {
+.first_container >div,
+.tercer_contenedor >div,
+.second_container > div {
     padding: 10px;
     border:1px solid #eaeaea;
     flex:1;

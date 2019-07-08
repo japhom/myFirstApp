@@ -96,18 +96,6 @@ class Boards extends React.PureComponent {
                     this.setState(nextState);
                 }
             });
-        // const nextState = produce(this.state, (draft) => {
-        //     let newBoard = {
-        //         items: [],
-        //         input: "",
-        //         index: 0,
-        //         title: draft.newBoard,
-        //         idBoard: idBoard
-        //     }
-        //     draft.boards = draft.boards.concat(newBoard);
-        //     draft.newBoard = "";
-        //});
-        //this.setState(nextState);
     };
 
     onAddButtonClick = (object) => {
@@ -130,7 +118,7 @@ class Boards extends React.PureComponent {
         this.setState(nextState);
     };
 
-    onInputChange = (board, event) => {
+    onInputChange = (event,board) => {
         const value = event.target.value;
 
         if (board === "" || board === undefined) {
@@ -173,7 +161,7 @@ class Boards extends React.PureComponent {
                 </div>
                 <div className={styles.container_boards}>
                     {this.state.boards.map((board, i) =>
-                        <Board board={board} BoardFunctions={BoardFunctions} key={i} boardKey={i} />
+                        <Board board={board} boardFunctions={BoardFunctions} key={i} boardKey={i} />
                     )}
                 </div>
                 <div className={styles.result_container}>

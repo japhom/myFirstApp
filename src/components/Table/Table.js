@@ -3,7 +3,7 @@ import styles from './Table.module.scss';
 import CurrencyFormat from 'react-currency-format';
 
 
-export default (class Summary extends React.PureComponent {
+export default (class Table extends React.PureComponent {
     state = { };
 
     formatData = (data, type) => {
@@ -31,11 +31,11 @@ export default (class Summary extends React.PureComponent {
     };
 
     render() {
-        const { headers, data } = this.props;
+        const { headers, data, caption } = this.props;
         return (
             <div className={styles.table_container}>
                 <table className={styles.table} boder="0" cellSpacing="0">
-                    <caption>{data.date} {data.name}</caption>
+                    <caption>{caption}</caption>
                     <thead>
                         <tr>
                             {headers.map((element, m) => {

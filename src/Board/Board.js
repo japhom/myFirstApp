@@ -15,7 +15,7 @@ class Board extends React.Component {
         }
     }
     render() {
-        const { board, BoardFunctions, boardKey} = this.props;
+        const { board, boardFunctions, boardKey, addItem} = this.props;
         return (
             <div className={styles.main}>
 
@@ -31,12 +31,13 @@ class Board extends React.Component {
                         className={styles.close_board_button}>
                     </Button>
                 </div>
-
-                <div className={styles.container_add}>
-                    <Input tipo="text" input={board.input} onChange={BoardFunctions.onInputChange} boardKey={boardKey}></Input>
-                    <Button label={''} onClick={()=>BoardFunctions.onAddButtonClick(boardKey)} icon={<IconPlusMark className={styles.plus_icon}/>} />
-                </div>
-                <List items={board.items} index={board.index} board={board.name} onDeleteItem={BoardFunctions.onDeleteItem} boardKey={boardKey}/>
+                {addItem === undefined ? (
+                    <div className={styles.container_add}>
+                        <Input tipo="text" input={board.input} onChange={(event)=>boardFunctions.onInputChange(event,boardKey)}></Input>
+                        <Button label={''} onClick={()=>boardFunctions.onAddButtonClick(boardKey)} icon={<IconPlusMark className={styles.plus_icon}/>} />
+                    </div>):''
+                }
+                <List items={board.items} index={board.index} board={board.name} onDeleteItem={boardFunctions.onDeleteItem} boardKey={boardKey}/>
                 {/* <Button style={styles.button_green} label={"Siguiente"} onClick={onButtonClick}  /> */}
             </div>
         );

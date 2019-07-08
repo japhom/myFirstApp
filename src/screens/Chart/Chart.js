@@ -6,11 +6,11 @@ import {
 export default class SimpleBarChart extends PureComponent {
 //    static jsfiddleUrl = 'https://jsfiddle.net/alidingling/30763kr7/';
 render() {
-    const {newData,label,llaves,fill} = this.props;
+    const {newData,label,llaves,ancho,alto} = this.props;
         return (
             <BarChart
-                width={800}
-                height={500}
+                width={ancho===undefined?800:ancho}
+                height={alto === undefined ? 300 : alto}
                 data={newData}
                 margin={{
                     top: 5, right: 30, left: 20, bottom: 5,

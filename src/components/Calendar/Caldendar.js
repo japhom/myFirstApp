@@ -9,29 +9,20 @@ import 'react-date-range/dist/theme/default.css';
 import produce from 'immer/dist/immer';
 
 export default (class Calendario extends React.PureComponent {
-    state = {
-        date: undefined
-    };
-
+    
     componentDidMount() { }
 
     onHandleCalendar = (date) => {
-        console.log('TCL: Date -> onHandleCalendar -> date', date);
-        console.log('TCL: Date -> onHandleCalendar -> date', moment(date).format('YYYY-MM-DD'));
-
-        const nextState = produce(this.state, (draft) => {
-            draft.date = date;
-        });
-        this.setState(nextState);
+        const {onDateChange} = this.props;
+        onDateChange(moment(date).format('YYYY-MM-DD'));
     };
 
     render() {
-        const { date } = this.state;
         return (
             <div className={styles.main}>
                 Fechas
 				<div className={styles.datepicker}>
-                    <Calendar className={styles.calendario} locale={es} date={date} rangeColors={['#3861f6']} color={'#3861f6'} onChange={this.onHandleCalendar} />
+                    <Calendar className={styles.calendario} locale={es}  rangeColors={['#3861f6']} color={'#3861f6'} onChange={this.onHandleCalendar} />
                 </div>
             </div>
         );
