@@ -4,14 +4,12 @@ import List from '../components/List/List';
 import Button from '../components/Button/Button';
 import Input from '../components/Input/Input';
 import { IconPlusMark } from '../resources/svg/Icons';
-import { NONAME } from 'dns';
-
 
 class Board extends React.Component {
     deleteBoard = ()=>{
-        const { BoardFunctions, boardKey } = this.props;
+        const { boardFunctions, boardKey } = this.props;
         if (window.confirm("confirme el borrado del Tablero")){
-            BoardFunctions.fnDeleteBoard(boardKey);
+            boardFunctions.fnDeleteBoard(boardKey);
         }
     }
     render() {

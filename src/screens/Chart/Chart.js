@@ -36,7 +36,6 @@ render() {
                 <Legend />
                 <Bar yAxisId="left" dataKey={llaves[0]} fill={'url(#colorUv)'} />
                 <Bar yAxisId="right" dataKey={llaves[1]} fill={'url(#colorPv)'} />
-                  
             </BarChart>
         );
     }

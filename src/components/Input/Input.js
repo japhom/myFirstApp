@@ -3,7 +3,7 @@ import styles from './Input.module.scss';
 
 export default class Button extends React.Component {
     render(){
-        const { input, label,onChange,tipo} = this.props;
+        const { input, label,onChange,tipo,pattern} = this.props;
         return (
             <div className={styles.main}>
                 <span>
@@ -11,7 +11,9 @@ export default class Button extends React.Component {
                 </span>
                 <input  type={tipo} className={styles.default} 
                     value={ input } 
-                    onChange={onChange}/>
+                    onChange={onChange}
+                    pattern={pattern}
+                    />
             </div>
         );
     }

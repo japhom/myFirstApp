@@ -82,8 +82,13 @@ export default class Dates extends PureComponent {
         });
         this.setState(nextState);
     }
+    onDeleteItem = (boardKey,item) =>{
+        console.log("borrando elemento");
+    }
     render() {
-        const boardFunctions = {};
+        const boardFunctions = {
+            onDeleteItem:this.onDeleteItem
+        };
         
         return (
             <div className={styles.main_container}>
@@ -93,13 +98,13 @@ export default class Dates extends PureComponent {
                     <div className={styles.inputs}>
                         <div>Mis Datos</div><br/><br/>
                         <Input onChange={()=>{}  }   input = {this.state.inputs.one}   label={"X"} />
-                        <Input onChange={(event) => this.onInputChange(event,"two")}   input = {this.state.inputs.two}   label={"Y1"} />
-                        <Input onChange={(event) => this.onInputChange(event,"three")} input = {this.state.inputs.three} label={"Y2"}/>
+                        <Input onChange={(event) => this.onInputChange(event, "two")}   input={this.state.inputs.two}   label={"Y1"} pattern={"[0-9]*"} />
+                        <Input onChange={(event) => this.onInputChange(event, "three")} input={this.state.inputs.three} label={"Y2"} pattern={"[0-9]*"}/>
                         <Button onClick={this.onAddData} label={'Agregar'}/>
 
                     </div>
                     <div className={styles.calendar}>
-                        <Calendario onDateChange={ this.onDateChange} />
+                        <Calendario onDateChange={ this.onDateChange } />
                     </div>
                     <div className={styles.export_buttons}>
                         <Button onClick={()=>{}}   label={'PDF'}/>
@@ -110,7 +115,7 @@ export default class Dates extends PureComponent {
                     {
                         this.state.boards.map((board,index) =>(
                             <div key={index}>
-                                <Board board={board} boardFunctions={boardFunctions} addItem={true}  />
+                                <Board board={board} boardFunctions={boardFunctions} addItem={true} boardKey={index}  />
                             </div>
                         ))
                     }
@@ -122,7 +127,10 @@ export default class Dates extends PureComponent {
                         />
                     </div>
                     <div>
-                        <SimpleBarChart newData={this.state.data.rows.summary} label={"name"} llaves={["y1", "y2"]} fill={["rgba(200,0,0,.3)", "rgba(0, 200, 0, .3)"]} alto={150} ancho={600} />
+                        <SimpleBarChart newData={this.state.data.rows.summary} 
+                            label={"name"} llaves={["y1", "y2"]} 
+                            fill={["rgba(200,0,0,.3)", "rgba(0, 200, 0, .3)"]} 
+                            alto={200} ancho={600} />
                     </div>
                 </div>
 
