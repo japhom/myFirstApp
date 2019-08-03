@@ -20,7 +20,7 @@ class Boards extends React.PureComponent {
     };
 
     componentWillMount() {
-        fetch('http://www.programacionapi.com:8000/api/boards')
+        fetch('http://192.168.56.101:8000/api/boards')
             .then((response) => {
                 return response.json();
             }).then((boards) => {

@@ -7,6 +7,9 @@ import Tablas from './screens/Tablas/Tablas';
 import Reportes from './screens/Reportes/Reportes';
 import Summary from './screens/Summary/Summary';
 import Dates from './screens/Date/Dates';
+import Home from './screens/Home/Home';
+
+
 import styles from './App.module.scss';
 
 export default withRouter(
@@ -15,6 +18,9 @@ export default withRouter(
             return (
                 <div>
                     <div className={styles.nav}>
+                        <Link to="/Home">
+                            <div>Home</div>
+                        </Link>
                         <Link to="/Boards">
                             <div>Boards</div>
                         </Link>
@@ -32,12 +38,13 @@ export default withRouter(
                         </Link>
                     </div>
                     <Switch>
+                        <RouteWithTitle exact title="Home" path="/Home" component={Home} />                      
                         <RouteWithTitle exact title="Boards" path="/Boards" component={Boards} />
                         <RouteWithTitle exact title="Tablas" path="/Tablas" component={Tablas} />
                         <RouteWithTitle exact title="Reportes" path="/Reportes" component={Reportes} />
                         <RouteWithTitle exact title="Summary" path="/Summary" component={Summary} />
                         <RouteWithTitle exact title="Fechas" path="/Fechas" component={Dates} />
-                        <Redirect to={'/Reportes'} />
+                        <Redirect to={'/Home'} />
                     </Switch>
                 </div>
             );
