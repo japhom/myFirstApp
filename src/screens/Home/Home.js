@@ -7,7 +7,7 @@ export default (class Home extends React.PureComponent {
     state = {datos:{
         aliases:[]
     },
-    city:{main:{}}
+    city:{}
     };
 
     componentDidMount() {
@@ -63,8 +63,10 @@ export default (class Home extends React.PureComponent {
                     <li onClick={()=>this.getCityInfo(3632308)}>Merida </li>
                     <li onClick={()=>this.getCityInfo(3985604)}>San Luis Rio Colorado </li>
                     <li onClick={()=>this.getCityInfo(3532617)}>Atlacomulco Estado de Mexico </li>
-                </ul>
-                <City data={this.state.city}  />
+                </ul>{this.state.city.main &&
+
+                    <City data={this.state.city}  />
+                }
             </div>;
     }
 });
