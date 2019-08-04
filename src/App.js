@@ -8,9 +8,11 @@ import Reportes from './screens/Reportes/Reportes';
 import Summary from './screens/Summary/Summary';
 import Dates from './screens/Date/Dates';
 import Home from './screens/Home/Home';
+import Countries from './screens/Users/Countries';
 
 
 import styles from './App.module.scss';
+
 
 export default withRouter(
     class App extends React.PureComponent {
@@ -33,6 +35,9 @@ export default withRouter(
                         <Link to="/Reportes">
                             <div>Reportes</div>
                         </Link>
+                        <Link to="/Users">
+                            <div>Users</div>
+                        </Link>
                         <Link to="/Fechas">
                             <div>Fechas</div>
                         </Link>
@@ -44,6 +49,7 @@ export default withRouter(
                         <RouteWithTitle exact title="Reportes" path="/Reportes" component={Reportes} />
                         <RouteWithTitle exact title="Summary" path="/Summary" component={Summary} />
                         <RouteWithTitle exact title="Fechas" path="/Fechas" component={Dates} />
+                        <RouteWithTitle exact title="Usuarios" path="/Users" component={Countries} />
                         <Redirect to={'/Home'} />
                     </Switch>
                 </div>
